@@ -12,4 +12,6 @@ COPY ["predict_vowel.py", "vowel-model.bin", "./"]
 
 EXPOSE 9696
 
-ENTRYPOINT [ "gunicorn", "--bind=0.0.0.0:9696", "predict_vowel:app" ]
+# ENTRYPOINT [ "gunicorn", "--bind=0.0.0.0:9696", "predict_vowel:app" ]
+
+ENTRYPOINT [ "gunicorn", "predict_vowel:app" ]
