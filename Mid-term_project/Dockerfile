@@ -10,8 +10,8 @@ RUN pipenv install --system --deploy
 
 COPY ["predict_vowel.py", "vowel-model.bin", "./"]
 
-EXPOSE 9696
+#EXPOSE 9696  #(For local deployment)
 
-# ENTRYPOINT [ "gunicorn", "--bind=0.0.0.0:9696", "predict_vowel:app" ]
+#ENTRYPOINT [ "gunicorn", "--bind=0.0.0.0:9696", "predict_vowel:app" ]  #(For local deployment)
 
 ENTRYPOINT [ "gunicorn", "predict_vowel:app" ]

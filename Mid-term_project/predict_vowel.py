@@ -8,7 +8,14 @@ model_file = 'vowel-model.bin'
 with open (model_file, 'rb') as f_in:
     model = pickle.load(f_in)
 
+DEPLOY = 'heroku'
+
 app = Flask('vowel')
+
+@app.route('/welcome', methods=['GET'])
+def welcome():
+    welcome_msg = "<h1>Welcome to your application deployed as Docker container on heroku</h1>"
+    return welcome_msg
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -37,5 +44,9 @@ def convert_to_vowel(vowel_int):
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=9696)
+    if DEPLOY == 'heroku':
+        port = int(os.environ.get("PORT", 5000))  # For deployment to Heroku
+        app.run(host='0.0.0.0', port=port)  # When deployed locally, used port 9696
+    else:
+        app.run(debug = True, host = '0.0.0.0', port = 9696)
 
